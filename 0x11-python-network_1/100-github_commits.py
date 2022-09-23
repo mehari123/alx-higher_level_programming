@@ -1,19 +1,21 @@
 #!/usr/bin/python3
-"""
-Holberton School staff evaluates candidates applying
-for a back-end position with multiple technical challenges
-"""
-from sys import argv
+"""api thing"""
+import sys
 import requests
 
 
-if __name__ == "__main__":
-    r = requests.get('https://api.github.com/repos/{}/{}/commits'
-                     .format(argv[2], argv[1]))
-    l = r.json()
+def apidata():
+    """apidata"""
+    url = "https://api.github.com/repos/{}/{}/commits".format(sys.argv[2],
+                                                              sys.argv[1])
+    result = requests.get(url)
     try:
+        d = result.json()
         for i in range(10):
-            print(l[i].get('sha'), l[i].get('commit')
-                  .get('author').get('name'), sep=": ")
-    except:
+            print("{}: {}".format(d[i]["sha"],
+                                  d[i]["commit"]["author"]["name"]))
+    except IndexError:
         pass
+
+if __name__ == "__main__":
+    apidata()
