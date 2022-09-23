@@ -1,36 +1,74 @@
 #!/usr/bin/python3
-"""Test model for the rectangle class"""
-
+"""unitest for testing rectangle"""
 
 import unittest
-from models.rectangle import Rectangle
+import sys
+import io
 from models.base import Base
+from models.rectangle import Rectangle
+from models.square import Square
 
 
-class TestRectangle(unittest.TestCase):
-    """Tests the rectangle model"""
+class TestingRectangle(unittest.TestCase):
+    """class for Test Rectangle"""
 
-    def test_id(self):
-        """Tests for Id"""
-        r1 = Rectangle(10, 2)
-        self.assertEqual(r1.id, 1)
+    # RECTANGLE WIDTH CHECKER
+    def test0_width_few_args(self):
+            """Width Rectangle"""
+            Base._Base__nb_objects = 0
+            with self.assertRaises(TypeError):
+                r0 = Rectangle(1)
 
-        r2 = Rectangle(2, 10)
-        self.assertEqual(r2.id, 2)
+    def test1_width_string(self):
+            """Width Rectangle"""
+            Base._Base__nb_objects = 0
+            with self.assertRaises(TypeError):
+                r1 = Rectangle("hello", 2)
 
-    def test_multi_id(self):
-        """Tests for valid input"""
-        r3 = Rectangle(10, 2, 0, 0, 12)
-        self.assertEqual(r3.id, 12)
+    def test2_width_list(self):
+            """Width Rectangle"""
+            Base._Base__nb_objects = 0
+            with self.assertRaises(TypeError):
+                r2 = Rectangle([9, 6], 2)
 
-    def test_valid_params(self):
-        """Test for valid parameters"""
-        pass
+    def test3_width_tuple(self):
+            """Width Rectangle"""
+            Base._Base__nb_objects = 0
+            with self.assertRaises(TypeError):
+                r3 = Rectangle((7, 3), 4)
 
-    def test_default_params(self):
-        """Tests for default paramsters"""
-        pass
+    def test4_width_dictionary(self):
+            """Width Rectangle"""
+            Base._Base__nb_objects = 0
+            with self.assertRaises(TypeError):
+                r4 = Rectangle({'k': 8}, 5)
 
+    def test5_width_zero(self):
+            """Width Rectangle"""
+            Base._Base__nb_objects = 0
+            with self.assertRaises(ValueError):
+                r5 = Rectangle(0, 6)
 
-if __name__ == '__main__':
-    unittest.main()
+    def test6_width_negative(self):
+            """Width Rectangle"""
+            Base._Base__nb_objects = 0
+            with self.assertRaises(ValueError):
+                r6 = Rectangle(-7, 8)
+
+    def test7_width_float(self):
+            """Width Rectangle"""
+            Base._Base__nb_objects = 0
+            with self.assertRaises(TypeError):
+                r7 = Rectangle(4.5, 9)
+
+    def test8_width_nan(self):
+            """Width Rectangle"""
+            Base._Base__nb_objects = 0
+            with self.assertRaises(TypeError):
+                r8 = Rectangle(float('NaN'), 7)
+
+    def test9_width_inf(self):
+            """Width Rectangle"""
+            Base._Base__nb_objects = 0
+            with self.assertRaises(TypeError):
+                r9 = Rectangle(float('inf'), 7)

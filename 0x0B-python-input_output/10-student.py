@@ -1,20 +1,15 @@
 #!/usr/bin/python3
-"""Student to JSON with filter
-"""
-
+"""class Student that defines a student"""
 
 class Student:
-    """A class representation of a student.
-    """
+    """Represent a student."""
 
     def __init__(self, first_name, last_name, age):
-        """Initializes a new student.
-
+        """Initialize a new Student.
         Args:
             first_name (str): The first name of the student.
             last_name (str): The last name of the student.
             age (int): The age of the student.
-
         """
         self.first_name = first_name
         self.last_name = last_name
@@ -24,10 +19,8 @@ class Student:
         """Get a dictionary representation of the Student.
         If attrs is a list of strings, represents only those attributes
         included in the list.
-
         Args:
             attrs (list): (Optional) The attributes to represent.
-
         """
         if (type(attrs) == list and
                 all(type(ele) == str for ele in attrs)):

@@ -1,11 +1,9 @@
 #!/usr/bin/python3
-"""From JSON string to Object"""
+"""return a JSON object"""
 import json
 
 
 def from_json_string(my_str):
-    """Return the Python object representation of a
-    JSON string.
+    """return a python object"""
 
-    """
     return json.loads(my_str)
