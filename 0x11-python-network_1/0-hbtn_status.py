@@ -6,7 +6,7 @@ import urllib.request
 def fetcher():
     """fetcher"""
     req=urllib.request.Request("https://intranet.hbtn.io/status")
-    with urllib.urlopen(req) as response:
+    with urllib.request.urlopen(req) as response:
         html = response.read()
         print("Body response:")
         print("\t- type: {}".format(type(html)))
