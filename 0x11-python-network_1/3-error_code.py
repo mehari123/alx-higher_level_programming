@@ -1,18 +1,16 @@
 #!/usr/bin/python3
-"""Send request"""
+"""
+given URL, sends a request, displays response (utf-8).
+usage: ./3-error_code.py http://0.0.0.0:5000/status_401
+"""
 import urllib.request
-import urllib.error
-import sys
+from sys import argv
+import urllib.parse
 
-
-def sender():
-    """sender"""
-    try:
-        with urllib.request.urlopen(sys.argv[1]) as response:
-            html = response.read()
-            print(html.decode("utf-8"))
-    except urllib.error.HTTPError as e:
-        print("Error code: {}".format(e.code))
 
 if __name__ == "__main__":
-    sender()
+    try:
+        with urllib.request.urlopen(argv[1]) as response:
+            print(response.read().decode())
+    except urllib.error.URLError as e:
+        print("Error code: {}".format(e.code))
