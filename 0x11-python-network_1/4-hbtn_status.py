@@ -1,12 +1,10 @@
 #!/usr/bin/python3
-'''
-Script that fetches https://intranet.hbtn.io/status
-'''
-
-import requests
-
+"""fetches https://intranet.hbtn.io/status
+using requests
+"""
 if __name__ == "__main__":
-    url = requests.get('https://intranet.hbtn.io/status')
-    print('Body response:')
-    print('\t- type: {}'.format(type(url.text)))
-    print('\t- content: {}'.format(url.text))
+    import requests
+    req = requests.get('https://intranet.hbtn.io/status')
+    print("Body response:")
+    print("	- type:", type(req.text))
+    print("	- content:", req.text)
