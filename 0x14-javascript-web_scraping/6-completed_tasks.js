@@ -1,21 +1,21 @@
 #!/usr/bin/node
+
 const request = require('request');
+const url = process.argv[2];
 
-if (process.argv.length > 2) {
-  request(process.argv[2], (err, res, body) => {
-    const aggregate = {};
-
-    if (err) {
-      console.log(err);
-    }
-    JSON.parse(body).forEach(element => {
-      if (element.completed) {
-        if (!aggregate[element.userId]) {
-          aggregate[element.userId] = 0;
-        }
-        aggregate[element.userId]++;
+request(url, function (error, response, body) {
+  if (error) {
+    console.log(error);
+  }
+  const completed = {};
+  for (const task of JSON.parse(body)) {
+    if (task.completed === true) {
+      if (completed[task.userId]) {
+        completed[task.userId]++;
+      } else {
+        completed[task.userId] = 1;
       }
-    });
-    console.log(aggregate);
-  });
-}
+    }
+  }
+  console.log(completed);
+});

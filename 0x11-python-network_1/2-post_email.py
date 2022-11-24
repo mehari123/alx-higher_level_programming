@@ -1,13 +1,17 @@
 #!/usr/bin/python3
-"""Sends a form data to a URL."""
-import sys
-from urllib import request, parse
+"""Python script that post an email"""
 
+
+import urllib.request
+import urllib.parse
+import sys
 
 if __name__ == '__main__':
-    if len(sys.argv) > 2:
-        url = sys.argv[1]
-        email = sys.argv[2]
-        form_data = bytes(parse.urlencode([('email', email)]), 'utf-8')
-        with request.urlopen(sys.argv[1], data=form_data) as response:
-            print(response.read().decode('utf-8'))
+    url = sys.argv[1]
+    email_value = {'email': sys.argv[2]}
+    data = urllib.parse.urlencode(email_value)
+    data = data.encode('utf-8')
+    request = urllib.request.Request(url, data)
+
+    with urllib.request.urlopen(request) as response:
+        print("{}".format(response.read().decode('utf-8')))

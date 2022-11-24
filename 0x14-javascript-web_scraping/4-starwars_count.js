@@ -1,16 +1,18 @@
 #!/usr/bin/node
 const request = require('request');
+const url = process.argv[2];
 
-if (process.argv.length > 2) {
-  request(`${process.argv[2]}`, (err, res, body) => {
-    if (err) {
-      console.log(err);
-    } else if (body) {
-      const charFilms = JSON.parse(body).results.filter(
-        x => x.characters.find(y => y.match(/\/people\/18\/?$/))
-      );
-
-      console.log(charFilms.length);
+request(url, function (err, response, body) {
+  if (err) {
+    console.log(err);
+  }
+  let count = 0;
+  for (const result of JSON.parse(body).results) {
+    for (const wedgeUrl of result.characters) {
+      if (wedgeUrl.includes(18)) {
+        count++;
+      }
     }
-  });
-}
+  }
+  console.log(count);
+});

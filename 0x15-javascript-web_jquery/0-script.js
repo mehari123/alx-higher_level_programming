@@ -1,2 +1,2 @@
-'use strict';
-document.querySelector('header').style.color = '#FF0000';
+const HeaderColor = document.querySelector('header');
+HeaderColor.style.color = '#FF0000';

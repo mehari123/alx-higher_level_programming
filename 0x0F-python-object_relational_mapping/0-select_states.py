@@ -1,22 +1,26 @@
 #!/usr/bin/python3
-'''Prints all rows in the states table of a database.
-'''
-import sys
+"""
+Lists all states from the database hbtn_0e_0_usa.
+Usage: ./0-select_states.py <mysql username> \
+                            <mysql password> \
+                             <database name>
+"""
 import MySQLdb
+from sys import argv
 
-
-if __name__ == '__main__':
-    if len(sys.argv) >= 4:
-        db_connection = MySQLdb.connect(
-            host='localhost',
-            port=3306,
-            user=sys.argv[1],
-            passwd=sys.argv[2],
-            db=sys.argv[3]
-        )
-        cursor = db_connection.cursor()
-        cursor.execute('SELECT * FROM states ORDER BY id ASC;')
-        results = cursor.fetchall()
-        for result in results:
-            print(result)
-        db_connection.close()
+if __name__ == "__main__":
+    HOST = "localhost"
+    PORT = 3306
+    MY_USER = argv[1]
+    MY_PSWD = argv[2]
+    MY_DB = argv[3]
+    db = MySQLdb.connect(host=HOST, user=MY_USER, password=MY_PSWD,
+                         db=MY_DB, port=PORT)
+    cur = db.cursor()
+    query = "SELECT * FROM states ORDER BY id"
+    cur.execute(query)
+    rowquery = cur.fetchall()
+    for qprint in rowquery:
+        print(qprint)
+    cur.close()
+    db.close()

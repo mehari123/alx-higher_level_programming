@@ -1,15 +1,11 @@
-'use strict';
-$(() => {
-  $('DIV#add_item').click(() => {
+$('document').ready(function () {
+  $('DIV#add_item').click(function () {
     $('UL.my_list').append('<li>Item</li>');
   });
-  $('DIV#remove_item').click(() => {
-    const lastEl = $('UL.my_list').children().last();
-    if (lastEl) {
-      lastEl.remove();
-    }
+  $('DIV#remove_item').click(function () {
+    $('UL.my_list li:last').remove();
   });
-  $('DIV#clear_list').click(() => {
+  $('DIV#clear_list').click(function () {
     $('UL.my_list').empty();
   });
 });
