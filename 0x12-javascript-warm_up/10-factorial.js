@@ -1,16 +1,10 @@
 #!/usr/bin/node
-/**
- * factorial - Computes the factorial of a number.
- * @param {Number} num - The number.
- *
- * @returns The factorial of the number.
- */
-function factorial (num) {
-  if (Number.isNaN(num) || (num <= 0)) {
+// script that computes and prints a factorial
+const argv = parseInt(process.argv[2]);
+function Factorialize (num) {
+  if ((Number.isNaN(num)) || (num === 1)) {
     return 1;
-  } else {
-    return num * factorial(num - 1);
   }
+  return Factorialize(num - 1) * num;
 }
-
-console.log(factorial(Number.parseInt(process.argv[2])));
+console.log(Factorialize(argv));

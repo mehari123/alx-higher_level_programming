@@ -1,8 +1,8 @@
 #!/usr/bin/node
-const args = process.argv
-  .slice(2)
-  .map(arg => Number.parseInt(arg))
-  .sort((a, b) => b - a);
-const val = args.length < 2 ? 0 : args[1];
-
-console.log(val);
+// script that searches the second biggest integer in the list of arguments
+const mySol = process.argv;
+if (mySol.length <= 3) {
+  console.log(0);
+} else {
+  console.log(mySol.sort((x, y) => y - x).slice(3)[0]);
+}
