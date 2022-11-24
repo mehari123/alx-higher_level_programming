@@ -1,20 +1,18 @@
 #!/usr/bin/node
-
 const request = require('request');
+const url = process.argv[2];
 
-request(process.argv[2], function (error, response, body) {
-  if (error) {
-    console.error(error);
+request(url, function (err, response, body) {
+  if (err) {
+    console.log(err);
   }
-  /* const nb = JSON.parse(body).results.reduce((acc, elem) => {
-    acc += elem.characters.reduce((acc, character) => {
-      return (character === 'https://swapi.co/api/people/18/' ? acc + 1 : acc);
-    }, 0);
-    return (acc);
-  }, 0);
-  */
-  const nb = JSON.parse(body).results.filter((elem) => {
-    return elem.characters.filter((url) => { return url.includes('18'); }).length;
-  }).length;
-  console.log(nb);
+  let count = 0;
+  for (const result of JSON.parse(body).results) {
+    for (const wedgeUrl of result.characters) {
+      if (wedgeUrl.includes(18)) {
+        count++;
+      }
+    }
+  }
+  console.log(count);
 });

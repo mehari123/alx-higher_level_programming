@@ -1,22 +1,21 @@
 #!/usr/bin/node
 
 const request = require('request');
+const url = process.argv[2];
 
-request(process.argv[2], function (error, response, body) {
+request(url, function (error, response, body) {
   if (error) {
-    console.error(error);
+    console.log(error);
   }
-  const dict = JSON.parse(body).reduce((acc, elem) => {
-    if (!acc[elem.userId]) {
-      if (elem.completed) {
-        acc[elem.userId] = 1;
-      }
-    } else {
-      if (elem.completed) {
-        acc[elem.userId] += 1;
+  const completed = {};
+  for (const task of JSON.parse(body)) {
+    if (task.completed === true) {
+      if (completed[task.userId]) {
+        completed[task.userId]++;
+      } else {
+        completed[task.userId] = 1;
       }
     }
-    return acc;
-  }, {});
-  console.log(dict);
+  }
+  console.log(completed);
 });

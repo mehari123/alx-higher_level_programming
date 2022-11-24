@@ -1,8 +1,5 @@
-window.fetch('https://swapi.co/api/films/?format=json')
-    .then((res) => res.json())
-    .then(function(data) {
-        data = data.results;
-        for (const obj of data) {
-            $('UL#list_movies').append(`<li>${obj.title}</li>`);
-        }
-    });
+$.getJSON('https://swapi-api.hbtn.io/api/films/?format=json', function (data) {
+  $.each(data.results, function (i, movie) {
+    $('UL#list_movies').append('<li>' + movie.title + '</li>');
+  });
+});
