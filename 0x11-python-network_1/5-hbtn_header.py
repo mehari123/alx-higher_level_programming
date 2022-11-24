@@ -1,10 +1,12 @@
 #!/usr/bin/python3
-"""takes in a URL, sends a rquest to the URL
-and displays the value of the variable
-X-Request-Id it the response header
-"""
-if __name__ == "__main__":
-    import sys
-    import requests
-    r = requests.get(sys.argv[1])
-    print(r.headers.get('X-Request-Id'))
+"""Fetches a header of a response from a URL."""
+import sys
+import requests
+
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        url = sys.argv[1]
+        response = requests.get(url)
+        if 'X-Request-Id' in response.headers:
+            print(response.headers['X-Request-Id'])

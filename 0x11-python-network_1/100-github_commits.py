@@ -1,16 +1,28 @@
 #!/usr/bin/python3
-"""list 10 commits (from the most recent to oldest) of the
-repository "rails" by user "rails" you must use the githubapi
-Print all commits by: <sha>: <author name>` (one by line)
+"""Retrieves the last 10 commits of a repository.
+Usage: ./100-github_commits.py repository_name repository_owner_name
 """
+import requests
+import sys
+
+
 if __name__ == "__main__":
-    import sys
-    import requests
-    repo = sys.argv[2] + "/" + sys.argv[1]
-    url = 'https://api.github.com/repos/{0}/commits?per_page=10'.format(repo)
-    r = requests.get(url)
-    commits = r.json()
-    for commit in commits:
-        sha = commit.get('sha')
-        name = commit.get('commit').get('author').get('name')
-        print("{}: {}".format(sha, name))
+    if len(sys.argv) > 2:
+        repository_name = sys.argv[1]
+        owner_name = sys.argv[2]
+        api_url = 'https://api.github.com'
+        req_url = '{}/repos/{}/{}/commits?{}'.format(
+            api_url,
+            owner_name,
+            repository_name,
+            'per_page=10'
+        )
+        response = requests.get(
+            req_url,
+            headers={'Accept': 'application/vnd.github.v3+json'}
+        )
+        if response.status_code == 200:
+            for commit in response.json():
+                commit_sha = commit['sha']
+                commit_author = commit['commit']['author']['name']
+                print('{}: {}'.format(commit_sha, commit_author))
