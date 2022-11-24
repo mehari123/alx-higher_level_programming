@@ -1,21 +1,24 @@
 #!/usr/bin/python3
-
-
-import MySQLdb
-from sys import argv
-
-'''
-Script that lists all states from the database
-'''
+"""takes in an argument and displays all values in the
+states table of hbtn_0e_0_usa where name matches the argument.
+"""
 if __name__ == "__main__":
-    cont = MySQLdb.connect(
-        host="localhost", port=3306, user=argv[1],
-        password=argv[2], database=argv[3])
-    cursor = cont.cursor()
-    cursor.execute(
-            "SELECT * FROM states WHERE name LIKE"
-            " '{:s}' ORDER BY id ASC".format(argv[4]))
-    db = cursor.fetchall()
-    for i in db:
-        if i[1] == argv[4]:
-            print(i)
+    import MySQLdb
+    import sys
+    conn = MySQLdb.connect(
+        host="localhost",
+        port=3306,
+        user=sys.argv[1],
+        passwd=sys.argv[2],
+        db=sys.argv[3],
+        charset="utf8")
+    cur = conn.cursor()
+    cur.execute(
+        "SELECT * FROM states WHERE name LIKE '%%{userinput}%%' \
+ORDER BY id ASC".format(
+            userinput=sys.argv[4]))
+    query_rows = cur.fetchall()
+    for row in query_rows:
+        print(row)
+    cur.close()
+    conn.close()

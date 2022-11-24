@@ -1,27 +1,28 @@
 #!/usr/bin/python3
-"""
-lists all cities from the database
+"""Takes in the name of a state as an argument and
+lists all cities that state,
+script take 4 arguments(SQL injection free
 """
 if __name__ == "__main__":
-
     import MySQLdb
-    from sys import argv
-
-    cont = 0
-    conect = MySQLdb.connect(host="localhost", port=3306, user=argv[1],
-                             passwd=argv[2], db=argv[3], charset="utf8")
-    cursor = conect.cursor()
-    cursor.execute("""SELECT cities.id, cities.name, states.name
-    FROM cities
-    LEFT JOIN states ON cities.state_id = states.id
-    ORDER BY cities.id ASC""")
-    query_rows = cursor.fetchall()
+    import sys
+    conn = MySQLdb.connect(
+        host="localhost",
+        port=3306,
+        user=sys.argv[1],
+        passwd=sys.argv[2],
+        db=sys.argv[3],
+        charset="utf8")
+    cur = conn.cursor()
+    cur.execute(
+        "SELECT cities.name FROM cities JOIN states ON \
+cities.state_id = states.id WHERE states.name = %s",
+        (sys.argv[4],
+         ))
+    query_rows = cur.fetchall()
+    my_list = []
     for row in query_rows:
-        if row[2] == argv[4]:
-            if cont > 0:
-                print(", ", end="")
-            print(row[1], end="")
-            cont = cont + 1
-    print()
-    cursor.close()
-    conect.close()
+        my_list.append(",".join(str(x) for x in row))
+    print(*my_list, sep=", ")
+    cur.close()
+    conn.close()
