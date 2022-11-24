@@ -1,3 +1,3 @@
 #!/bin/bash
-# Script that takes a URL sends a Get and displays
-curl -s -X GET -L $1
+# Get the response body for a given URL for 200 status code responses.
+curl -sL "$1"
