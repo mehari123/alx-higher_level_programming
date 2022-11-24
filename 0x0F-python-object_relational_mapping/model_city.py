@@ -1,30 +1,16 @@
 #!/usr/bin/python3
-'''A module containing the City model.
-'''
-from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship
+"""contains the class definition of a City"""
 
-from model_state import Base
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import ForeignKey
+
+Base = declarative_base()
 
 
 class City(Base):
-    '''Represents a row in a cities table.
-    '''
-    __tablename__ = "cities"
-    id = Column(
-        Integer,
-        autoincrement=True,
-        unique=True,
-        nullable=False,
-        primary_key=True
-    )
-    name = Column(
-        String(length=128),
-        nullable=False
-    )
-    state_id = Column(
-        Integer,
-        ForeignKey('states.id'),
-        nullable=False
-    )
-    state = relationship('State', back_populates='cities')
+    """Class city"""
+    __tablename__ = 'cities'
+    id = Column(Integer, primary_key=True, unique=True, nullable=False)
+    name = Column(String(128), nullable=False)
+    state_id = Column(Integer, ForeignKey('states.id'), nullable=False)

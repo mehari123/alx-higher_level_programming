@@ -1,28 +1,34 @@
 #!/usr/bin/python3
-'''Prints all cities of a given state in a database.
-'''
-import sys
+"""
+Displays all cities of a given state from the
+states table of the database hbtn_0e_4_usa.
+Safe from SQL injections.
+Usage: ./5-filter_cities.py <mysql username> \
+                            <mysql password> \
+                            <database name> \
+                            <state name searched>
+"""
 import MySQLdb
-
+from sys import argv
 
 if __name__ == '__main__':
-    if len(sys.argv) >= 5:
-        db_connection = MySQLdb.connect(
-            host='localhost',
-            port=3306,
-            user=sys.argv[1],
-            passwd=sys.argv[2],
-            db=sys.argv[3]
-        )
-        state_name = sys.argv[4]
-        cursor = db_connection.cursor()
-        cursor.execute(
-            'SELECT cities.name FROM cities' +
-            ' INNER JOIN states ON cities.state_id = states.id' +
-            ' WHERE CAST(states.name AS BINARY) = %s' +
-            ' ORDER BY cities.id ASC;',
-            [state_name]
-        )
-        results = cursor.fetchall()
-        print(', '.join(map(lambda x: x[0], results)))
-        db_connection.close()
+
+    HOST = 'localhost'
+    PORT = 3306
+    MY_USER = argv[1]
+    MY_PSWD = argv[2]
+    MY_DB = argv[3]
+    NAME = argv[4]
+    db = MySQLdb.connect(host=HOST, user=MY_USER, password=MY_PSWD,
+                         db=MY_DB, port=PORT)
+    cur = db.cursor()
+    cur.execute("SELECT cities.name FROM cities JOIN states ON \
+        cities.state_id = states.id WHERE states.name LIKE %s \
+        ORDER BY cities.id", (NAME,))
+    rows = cur.fetchall()
+    list = []
+    for r in rows:
+        list.append(r[0])
+    print(", ".join(list))
+    cur.close()
+    db.close()

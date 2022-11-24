@@ -1,8 +1,3 @@
-'use strict';
-$(() => {
-  const BASE_URL = 'https://swapi-api.hbtn.io/api';
-
-  $.get(`${BASE_URL}/people/5/?format=json`, (data, status) => {
-    $('DIV#character').html(data.name);
-  });
+$.getJSON('https://swapi-api.hbtn.io/api/people/5/?format=json', function (data) {
+  $('DIV#character').text(data.name);
 });
