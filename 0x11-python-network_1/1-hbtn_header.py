@@ -1,13 +1,10 @@
 #!/usr/bin/python3
-"""
-given URL as parameter, fetch URL and display value from response header
-usage: ./1-hbtn_header https://intranet.hbtn.io
-"""
+""" takes a URL, sends a request and returns"""
+
+
 import urllib.request
-from sys import argv
+import sys
 
-
-if __name__ == "__main__":
-    req = urllib.request.Request(argv[1])
-    with urllib.request.urlopen(req) as response:
-        print(response.getheader('X-Request-Id'))
+if __name__ == '__main__':
+    with urllib.request.urlopen(sys.argv[1]) as response:
+        print("{}".format(response.getheader('X-Request-Id')))
