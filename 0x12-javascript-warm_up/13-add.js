@@ -1,4 +1,11 @@
 #!/usr/bin/node
-exports.add = function (num1, num2) {
-  return (num1 + num2);
+module.exports = {
+  /**
+   * add - Computes the sum of 2 numbers.
+   * @param {Number} a - The first number.
+   * @param {Number} b - The second number.
+   *
+   * @returns The sum of the 2 numbers.
+   */
+  add: (a, b) => a + b
 };

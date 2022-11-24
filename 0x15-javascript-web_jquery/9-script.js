@@ -1,3 +1,8 @@
-$.getJSON('https://fourtonfish.com/hellosalut/?lang=fr', function (data) {
-  $('DIV#hello').text(data.hello);
+'use strict';
+$(() => {
+  const BASE_URL = 'https://fourtonfish.com';
+
+  $.get(`${BASE_URL}/hellosalut/?lang=fr`, (data, status) => {
+    $('DIV#hello').html(data.hello);
+  });
 });

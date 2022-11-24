@@ -1,3 +1,8 @@
-$('DIV#red_header').on('click', function () {
-  $('header').addClass('red');
+'use strict';
+$(() => {
+  $('DIV#red_header').click(() => {
+    if (!$('header').hasClass('red')) {
+      $('header').addClass('red');
+    }
+  });
 });

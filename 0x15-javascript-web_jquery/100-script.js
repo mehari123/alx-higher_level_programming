@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', function(){
-	const HeaderColor = document.querySelector('header');
-	HeaderColor.style.color = '#FF0000';
+'use strict';
+window.addEventListener('load', () => {
+  document.querySelector('header').style.color = '#FF0000';
 });
