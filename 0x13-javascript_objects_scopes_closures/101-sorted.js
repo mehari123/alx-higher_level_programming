@@ -10,4 +10,3 @@ for (const N in dict) {
     }
     Dictn[dict[N]].push(N);
 }
-console.log(Dictn);
